@@ -1,2 +1,3 @@
-# daily_news
-daily_news_spider
+# 每日新闻概要daily_news
+- 36kr新闻抓取，每日9点10分抓取
+- 保存至本地markdown
