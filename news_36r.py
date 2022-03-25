@@ -29,19 +29,20 @@ def req_for_36kr_news():
             content = content + "- " + item.text + "\n"
     return content
 
+
+def post_to_qywechat(news_md):
+    requests.post(
+        "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=***************",
+        json={"msgtype": "markdown", "markdown": {"content": news_md},},
+    )
+
+
 def write_file(news_md):
     # 文件写入
     with open("new.md", "w+", encoding="utf-8") as f:
         f.write(news_md)
-        # for item in list.iter():
-        #     if item.tag == "h2":
-        #         print("## " + item.text)
-        #         f.write("## " + item.text + "\n")
-        #     elif item.tag == "strong":
-        #         print("1. " + item.text)
-        #         f.write("1. " + item.text + "\n")
-
 
 if __name__ == "__main__":
     news = req_for_36kr_news()
+    # post_to_qywechat(news)
     write_file(news)
