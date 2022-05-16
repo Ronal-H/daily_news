@@ -25,11 +25,19 @@ def req_for_36kr_news():
     )
     list = today_news_html_list[0]
     content = time.strftime("%Y年%m月%d日", time.localtime()) + "\n"
-    for item in list.iter():
+    for item in list:
         if item.tag == "h2":
-            content = content + "## " + item.text + "\n"
-        elif item.tag == "strong":
-            content = content + "- " + item.text + "\n"
+            if item.text != None:
+                content = content + "## " + item.text + "\n"
+            else :
+                for sub_item in item:
+                    if sub_item.tag == 'strong':
+                        content = content + "## " + sub_item.text + "\n"
+        elif item.tag == "p":
+            for sub_item in item:
+                if sub_item.tag == 'strong' and not sub_item.text.startswith('整理'):
+                    content = content + "- " + sub_item.text + "\n"
+    print(content)
     return content
 
 
